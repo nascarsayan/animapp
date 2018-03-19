@@ -23,7 +23,7 @@ Lockfile:
   No lockfile
 
 Trace: 
-  Error: Couldn't find a package.json file in "/home/nascarsayan/Softwares/code/sem6/dbms/animapp/tab-tracker"
+  Error: Couldn't find a package.json file in "/home/nascarsayan/Softwares/code/sem6/dbms/animapp"
       at new MessageError (/usr/share/yarn/lib/cli.js:186:110)
       at /usr/share/yarn/lib/cli.js:40048:15
       at Generator.next (<anonymous>)

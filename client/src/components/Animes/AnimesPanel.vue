@@ -11,8 +11,13 @@
       :search="search"
       :headers="headers"
       :items="animes"
+      :pagination.sync="pagination"
+      :rows-per-page-items="numRows"
       class="elevation-1">
       <template slot="items" slot-scope="props">
+        <td class="visitable type">
+          <img class="anime-image" :src="props.item.pic_url"/>
+        </td>
         <td class="visitable primary_name text-xs-left" @click="viewAnime(props.item.anime_id)">
             <b>{{props.item.primary_name}}</b><br/>
             {{props.item.synopsis.substring(0, 400)}}...
@@ -37,7 +42,14 @@ export default {
     return {
       search: '',
       page: 1,
+      numRows: [10, 20],
+      pagination: {'sortBy': 'primary_name', 'rowsPerPage': 10},
       headers: [{
+          text: "Pic",
+          value: "pic_url",
+          align: "left",
+        },
+        {
           text: "Title",
           value: "primary_name",
           align: "left",
@@ -81,5 +93,9 @@ export default {
 <style scoped>
 .visitable {
   cursor: pointer;
+}
+.anime-image {
+  width: 100%;
+  margin: 0 auto;
 }
 </style>

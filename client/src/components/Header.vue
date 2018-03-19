@@ -5,9 +5,12 @@
         class="home"
         tag="span"
         :to="{
-          name: 'animes'
+          name: 'animes',
+          query: {
+            offset: 50
+          }
         }">
-        TabTracker
+        AnimApp
       </router-link>
     </v-toolbar-title>
 
@@ -16,9 +19,9 @@
         flat 
         dark
         :to="{
-          name: 'animes'
+          name: 'search'
         }">
-        Browse
+        Search
       </v-btn>
     </v-toolbar-items>
 

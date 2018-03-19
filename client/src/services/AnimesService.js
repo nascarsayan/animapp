@@ -8,9 +8,10 @@ export default {
       }
     })
   },
-  show (offset) {
-    if (offset !== undefined) {
-      return Api().get(`animes/${offset}`)
+  show (params) {
+    if (params !== undefined) {
+      let strParams = JSON.stringify(params)
+      return Api().get(`animes?query=${strParams}`)
     } else {
       return Api().get(`animes`)
     }

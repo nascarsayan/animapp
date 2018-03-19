@@ -22,8 +22,6 @@ module.exports = (app) => {
     SongsController.show)
   app.get('/animes',
     AnimesController.index)
-  app.get('/animes/:offset',
-    AnimesController.index)
   app.get('/anime/:animeId',
     AnimesController.show)
   app.get('/persona/:personaId',

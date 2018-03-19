@@ -1,6 +1,6 @@
 <template>
   <panel title="Details">
-      <div class="content details"> {{persona.details}} </div>
+    <div class="content details" style="white-space: pre-wrap;"> {{persona.details}} </div>
   </panel>
 </template>
 

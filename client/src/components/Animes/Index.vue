@@ -1,10 +1,9 @@
 <template>
-  <v-layout>
+  <v-layout row wrap>
     <!-- <v-flex xs6 v-if="isUserLoggedIn">
       <animes-bookmarks />
       <recently-viewed-Animes class="mt-2" />
     </v-flex> -->
-
     <v-flex xs12 class="ml-2">
       <!-- <Animes-search-panel /> -->
       <animes-panel :animes="animes" class="mt-2" />
@@ -17,6 +16,7 @@ import AnimesPanel from './AnimesPanel'
 import AnimesService from '@/services/AnimesService'
 import {mapState} from 'vuex'
 
+import _ from 'lodash'
 export default {
   components: {
     AnimesPanel,
@@ -34,11 +34,10 @@ export default {
     }
   },
   async mounted () {
-    let offset = this.route.params.offset   
-    this.animes = (await AnimesService.show(offset)).data
+    this.animes = (await AnimesService.show(this.route.query)).data
   },
   watch: {
-    '$route.params.offset': {
+    '$route.query': {
       // immediate: true,
       async handler(value) {
         this.animes = (await AnimesService.show(value)).data

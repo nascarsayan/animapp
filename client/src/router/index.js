@@ -10,6 +10,7 @@ import Animes from '@/components/Animes/Index'
 import Anime from '@/components/Anime/Index'
 import Persona from '@/components/Persona/Index'
 import Crew from '@/components/Crew/Index'
+import AdvancedSearch from '@/components/AdvancedSearch'
 
 Vue.use(Router)
 
@@ -71,8 +72,13 @@ export default new Router({
       component: Crew
     },
     {
+      path: '/search',
+      name: 'search',
+      component: AdvancedSearch
+    },
+    {
       path: '*',
-      redirect: 'songs'
+      redirect: 'animes'
     }
   ]
 })
