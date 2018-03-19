@@ -1,0 +1,51 @@
+{
+  "anime_id": "8812",
+  "broadcast": "Unknown",
+  "duration_mins": 19,
+  "end_date": "Jan 28, 1999",
+  "genre": [
+    "Adventure"
+  ],
+  "num_episodes": 28,
+  "persona_crew": [
+    {
+      "crew": "439",
+      "persona": "34049"
+    },
+    {
+      "crew": "1412",
+      "persona": "34047"
+    },
+    {
+      "crew": "746",
+      "persona": "34046"
+    },
+    {
+      "crew": "478",
+      "persona": "34051"
+    },
+    {
+      "crew": "295",
+      "persona": "34050"
+    },
+    {
+      "crew": "8778",
+      "persona": "34048"
+    }
+  ],
+  "pic_url": "https://myanimelist.cdn-dena.com/images/anime/7/24323.jpg",
+  "premiered": "Spring 1998",
+  "primary_name": "Alice SOS",
+  "producer": [
+    "NHK"
+  ],
+  "rating": "G - All Ages",
+  "source": "Original",
+  "start_date": "Apr 6, 1998",
+  "status": "Finished Airing",
+  "studio": [
+    "J.C.Staff"
+  ],
+  "synopsis": "Takashi loves reading books and especially loves \"Alice's Adventures in Wonderland\". One day, he buys some used books, and he finds one book thrown in. When Takashi opens the book, \"the God of Math\" M-1 appeared. Takashi is told that Alice is kidnapped, and he's asked to rescue her by M-1. And Takashi goes on an adventure in Wonderland to rescue Alice. (Source: ANN)",
+  "type": "TV"
+}

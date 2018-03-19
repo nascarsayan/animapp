@@ -1,0 +1,5 @@
+const fs = require('fs')
+const path = require('path')
+const val = fs.readdirSync(__dirname).map((fname) => fs.readFileSync(path.join(__dirname, fname), 'utf8'))
+console.log(val)
+fs.writeFileSync(path.join(__dirname, 'anime2.js'), `const anime = ${val}\nmodule.exports = { anime }`, {encoding: 'utf8', flag: 'w'})

@@ -1,0 +1,41 @@
+{
+  "alt_name": [
+    "All That Gundam"
+  ],
+  "anime_id": "5270",
+  "duration_mins": 1,
+  "genre": [
+    "Action",
+    "Sci-Fi",
+    "Mecha"
+  ],
+  "num_episodes": 1,
+  "persona_crew": [
+    {
+      "crew": "33299",
+      "persona": "2197"
+    },
+    {
+      "crew": "5304",
+      "persona": "33299"
+    },
+    {
+      "crew": "8893",
+      "persona": "5304"
+    }
+  ],
+  "pic_url": "https://myanimelist.cdn-dena.com/images/anime/4/64997.jpg",
+  "primary_name": "All That Gundam",
+  "producer": [
+    "Atelier Musa"
+  ],
+  "rating": "G - All Ages",
+  "source": "Unknown",
+  "start_date": "1989",
+  "status": "Finished Airing",
+  "studio": [
+    "Sunrise"
+  ],
+  "synopsis": "Animated video created just for a 1989 event that featured all the major mobile suit robots from the first 10 years of the Gundam anime franchise. (Source: ANN)",
+  "type": "Special"
+}

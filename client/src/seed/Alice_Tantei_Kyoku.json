@@ -1,0 +1,39 @@
+{
+  "alt_name": [
+    "Alice Tanteikyoku",
+    "Alice's Detective Agency"
+  ],
+  "anime_id": "18819",
+  "broadcast": "Unknown",
+  "duration_mins": 12,
+  "end_date": "Jan 21, 1997",
+  "genre": [
+    "Mystery",
+    "Kids",
+    "Fantasy"
+  ],
+  "num_episodes": 56,
+  "persona_crew": [
+    {
+      "crew": "41441",
+      "persona": "25461"
+    },
+    {
+      "crew": "5958",
+      "persona": "41441"
+    }
+  ],
+  "pic_url": "https://myanimelist.cdn-dena.com/images/anime/4/50211.jpg",
+  "premiered": "Spring 1995",
+  "primary_name": "Alice Tantei Kyoku",
+  "producer": [
+    "NHK",
+    "Studio Junio"
+  ],
+  "rating": "G - All Ages",
+  "source": "Original",
+  "start_date": "Apr 5, 1995",
+  "status": "Finished Airing",
+  "synopsis": "",
+  "type": "TV"
+}
