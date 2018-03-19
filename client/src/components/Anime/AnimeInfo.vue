@@ -2,7 +2,7 @@
   <panel title="Info">
     <div>
       <v-layout>
-        <v-flex xs12>
+        <v-flex>
           <div class="content name">
             <b>Primary Name:</b> {{anime.primary_name}}
           </div>

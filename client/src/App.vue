@@ -4,7 +4,7 @@
       <page-header />
       
       <main>
-        <v-container fluid>
+        <v-container fluid grid-list-md text-xs-center>
           <router-view></router-view>
         </v-container>
       </main>

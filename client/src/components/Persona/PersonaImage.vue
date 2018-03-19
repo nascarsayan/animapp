@@ -1,17 +1,17 @@
 <template>
   <panel title="Image">
     <div>
-      <img class="content album-image" align="center" :src="anime.pic_url" />
+      <img class="content album-image" align="center" :src="persona.pic_url" />
     </div>
   </panel>
 </template>
 
 <script>
-import AnimeService from '@/services/AnimeService'
+import PersonaService from '@/services/PersonaService'
 
 export default {
   props: [
-    'anime'
+    'persona'
   ],
   // watch: {
   //   '$route.query.search': {
@@ -25,18 +25,9 @@ export default {
 </script>
 
 <style scoped>
-.anime {
-  padding: 20px;
-  height: 330px;
-  overflow: hidden;
-}
-
-.anime-name {
-  font-size: 30px;
-}
 
 .album-image {
-  width: 100%;
+  width: 40%;
   margin: 0 auto;
 }
 .content {

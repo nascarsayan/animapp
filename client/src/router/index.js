@@ -8,6 +8,8 @@ import EditSong from '@/components/EditSong'
 import ViewSong from '@/components/ViewSong/Index'
 import Animes from '@/components/Animes/Index'
 import Anime from '@/components/Anime/Index'
+import Persona from '@/components/Persona/Index'
+import Crew from '@/components/Crew/Index'
 
 Vue.use(Router)
 
@@ -57,6 +59,16 @@ export default new Router({
       path: '/anime/:animeId',
       name: 'anime',
       component: Anime
+    },
+    {
+      path: '/persona/:personaId',
+      name: 'persona',
+      component: Persona
+    },
+    {
+      path: '/crew/:crewId',
+      name: 'crew',
+      component: Crew
     },
     {
       path: '*',
