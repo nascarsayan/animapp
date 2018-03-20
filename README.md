@@ -1,5 +1,5 @@
 # Tab Tracker
-A Vue.js / Express.js web application for keeping track of guitar tabs
+A Vue.js / Express.js web application for keeping journals of anime
 
 # Setup
 
@@ -13,20 +13,21 @@ I suggest you install the following that I use in the video:
 
 VSCode: https://code.visualstudio.com/
 
-ITerm2: https://www.iterm2.com/ (Mac Only)
+Tmux: https://github.com/tmux/tmux/
+`sudo apt install tmux`
 
 Git: https://git-scm.com/
 
 ### Client - Terminal A
 ```
 cd client
-npm install
-npm start
+yarn
+yarn run start
 ```
 
 ### Server - Terminal B
 ```
 cd server
-npm install
-npm start
+yarn
+yarn run start
 ```

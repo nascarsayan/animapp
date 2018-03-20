@@ -2,6 +2,7 @@ const db = require('../db')
 const Song = require('../db')
 const _ = require('lodash')
 
+const animel1 = ['type', 'status', 'premiered', 'rating']
 const animel2 = ['alt_name', 'producer', 'licensor', 'studio', 'genre']
 let sqlQuery = ''
 module.exports = {
@@ -12,23 +13,25 @@ module.exports = {
       FROM Anime`
       let query = JSON.parse(req.query.query)
       let extras = []
-      if (query.type) {
-        extras.push(` type = '${query.type}'`)
-      }
-      if (query.status) {
-        extras.push(` status = '${query.status}'`)
-      }
-      if (query.rating) {
-        extras.push(` rating = '${query.rating}'`)
-      }
-      if (query.genre) {
-        let genreFilter = query.genre
-          .map(genre => `SELECT anime_id FROM Anime_genre WHERE genre = '${genre}'`)
-          .reduce((acc, nxt) => `${nxt} AND anime_id in (${acc})`)
-        extras.push(` anime_id IN (${genreFilter})`)
-        // let fields = query.genre.map(each => `'${each}'`).join(', ')
-        // extras.push(` genres in (${fields})`)
-      }
+      animel1.map((keyName) => {
+        if (query[keyName]) {
+          extras.push(` ${keyName} = '${query[keyName]}'`)
+        }
+      })
+      animel2.map((keyName) => {
+        if (query[keyName]) {
+          let values = query[keyName]
+          if (typeof (values) !== 'object') {
+            values = [values]
+          }
+          let keyFilter = values
+            .map(value => `SELECT anime_id FROM Anime_${keyName} WHERE ${keyName} = '${value}'`)
+            .reduce((acc, nxt) => `${nxt} AND anime_id in (${acc})`)
+          extras.push(` anime_id IN (${keyFilter})`)
+          // let fields = query.genre.map(each => `'${each}'`).join(', ')
+          // extras.push(` genres in (${fields})`)
+        }
+      })
       let suffix = ''
       if (extras.length > 0) {
         suffix = extras.join(' AND')
@@ -38,6 +41,7 @@ module.exports = {
         suffix = `${suffix} LIMIT 50 OFFSET ${query.offset}`
       }
       sqlQuery = `${sqlQuery} ${suffix};`
+      console.log(sqlQuery)
       let data = await db.query(sqlQuery)
       res.send(data)
     } catch (err) {

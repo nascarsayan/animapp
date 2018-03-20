@@ -9,26 +9,40 @@
           <div class="content alt_name">
             <b>Synonyms: </b>
             <span
-                v-for="name in anime.alt_name"
-                :key="name">
-                {{name}}, 
+              v-for="(name, index) in anime.alt_name"
+              :key="name">
+              {{name}}<span v-if="index < anime.alt_name.length - 1">, </span>
             </span>
           </div>
           <div class="content type">
-            <b>Type:</b> {{anime.type}}
+            <b>Type:</b>
+            <span
+              @click="filterPrimary('type', anime.type)"
+              class="visitable"
+              > {{anime.type}}</span>
           </div>
           <div class="content num-episodes">
             <b>Episodes:</b> {{anime.num_episodes}}
           </div>
           <div class="content status">
-            <b>Status:</b> {{anime.status}}
+            <b>Status:</b>
+            <span
+              @click="filterPrimary('status', anime.status)"
+              class="visitable"
+            > {{anime.status}}
+            </span>
           </div>
           <div class="content aired">
             <b>Aired:</b> {{anime.start_date}}
             <span v-if="anime.end_date"> to {{anime.end_date}} </span>
           </div>
           <div class="content premiered">
-            <b>Premiered:</b> {{anime.premiered}}
+            <b>Premiered:</b>
+            <span
+            @click="filterPrimary('premiered', anime.premiered)"
+            class="visitable"
+            > {{anime.premiered}}
+            </span>
           </div>
           <div class="content broadcast">
             <b>Broadcast:</b> {{anime.broadcast}}
@@ -36,36 +50,57 @@
           <div class="content producer">
             <b>Producers: </b>
             <span
-                v-for="producer in anime.producer"
-                :key="producer">
-                {{producer}}, 
+              v-for="(producer, index) in anime.producer"
+              :key="producer">
+              <span
+                @click="filterSecondary('producer', producer)"
+                class="visitable"
+                > {{producer}}<span v-if="index < anime.producer.length - 1">,</span>
+              </span>
             </span>
           </div>
           <div class="content licensor">
             <b>Licensors: </b>
             <span
-                v-for="licensor in anime.licensor"
-                :key="licensor">
-                {{licensor}}, 
+              v-for="(licensor, index) in anime.licensor"
+              :key="licensor">
+              <span
+                @click="filterSecondary('licensor', licensor)"
+                class="visitable"
+                > {{licensor}}<span v-if="index < anime.licensor.length - 1">,</span>
+              </span>
             </span>
           </div>
           <div class="content studio">
             <b>Studios: </b>
             <span
-                v-for="studio in anime.studio"
-                :key="studio">
-                {{studio}}, 
+              v-for="(studio, index) in anime.studio"
+              :key="studio">
+               <span
+                @click="filterSecondary('studio', studio)"
+                class="visitable"
+                > {{studio}}<span v-if="index < anime.studio.length - 1">,</span>
+              </span>
             </span>
           </div>
           <div class="content source">
-            <b>source:</b> {{anime.source}}
+            <b>source:</b>
+            <span
+              @click="filterPrimary('source', anime.source)"
+              class="visitable"
+              > {{anime.source}}
+            </span>
           </div>
           <div class="content genre">
             <b>Genres: </b>
             <span
-                v-for="genre in anime.genre"
-                :key="genre">
-                {{genre}}, 
+              v-for="(genre, index) in anime.genre"
+              :key="genre">
+              <span
+                @click="filterSecondary('genre', genre)"
+                class="visitable"
+                > {{genre}}<span v-if="index < anime.genre.length - 1">,</span>
+              </span> 
             </span>
           </div>
           <div class="content duration">
@@ -73,7 +108,12 @@
             <span v-if="isNotMovie"> per ep.</span>
           </div>
           <div class="content rating">
-            <b>Rating:</b> {{anime.rating}}
+            <b>Rating:</b>
+            <span
+              @click="filterPrimary('rating', anime.rating)"
+              class="visitable"
+              > {{anime.rating}}
+            </span> 
           </div>
         </v-flex>
       </v-layout>
@@ -91,6 +131,28 @@ export default {
     isNotMovie() {
       return this.anime.type !== 'Movie'
     }
+  },
+  methods: {
+    filterPrimary(field, val) {
+      console.log(field, val)
+      const route = {
+        name: 'animes',
+        query: {}
+      }
+      route.query[field] = val
+      console.log(route);
+      this.$router.push(route)
+    },
+    filterSecondary(field, val) {
+      console.log(field, val)
+      const route = {
+        name: 'animes',
+        query: {}
+      }
+      route.query[field] = [val]
+      console.log(route);
+      this.$router.push(route)
+    },
   }
   // watch: {
   //   '$route.query.search': {
@@ -120,5 +182,11 @@ export default {
 }
 .content {
   text-align: left;
+}
+.visitable {
+  cursor: pointer;
+}
+.visitable:hover {
+  color:aqua;
 }
 </style>

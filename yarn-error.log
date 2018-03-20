@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js run dev
+  /usr/bin/node /usr/share/yarn/bin/yarn.js run start
 
 PATH: 
   /bin:/home/nascarsayan/.local/bin:/home/nascarsayan/.cargo/bin:/home/nascarsayan/.cargo/bin:/home/nascarsayan/node_modules/.bin:/home/nascarsayan/bin:/home/nascarsayan/.local/bin:/home/nascarsayan/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
