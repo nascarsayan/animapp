@@ -4,23 +4,9 @@ const _ = require('lodash')
 
 module.exports = {
   async index (req, res) {
-    try {
-      let animes = []
-      let batch = ''
-      let offset = req.params.offset
-      if (req.params.offset) {
-        batch = ` LIMIT 50 OFFSET ${offset}`
-      }
-      let l1data = await db.query(`SELECT
-      anime_id, primary_name, type, num_episodes, start_date, rating, synopsis
-      FROM Anime${batch};`)
-      _.extend(animes, l1data)
-      res.send(animes)
-    } catch (err) {
-      res.status(500).send({
-        error: 'an error has occured trying to fetch animes'
-      })
-    }
+    let searchQuery = JSON.parse(req.query.query)
+    let persona = await db.query(`SELECT * FROM Persona WHERE primary_name LIKE '%${searchQuery.name}%'`)
+    res.send(persona)
   },
   async show (req, res) {
     let persona = {}

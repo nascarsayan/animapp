@@ -1,24 +1,27 @@
-const {User} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
+const db = require('../db')
 
 function jwtSignUser (user) {
-  const ONE_WEEK = 60 * 60 * 24 * 7
-  return jwt.sign(user, config.authentication.jwtSecret, {
-    expiresIn: ONE_WEEK
-  })
+  // const ONE_WEEK = 60 * 60 * 24 * 7
+  return jwt.sign(user, config.authentication.jwtSecret)
 }
 
 module.exports = {
   async register (req, res) {
     try {
-      const user = await User.create(req.body)
-      const userJson = user.toJSON()
+      let sqlQuery = `INSERT INTO User(email, password) VALUES ('${req.body.email}', '${req.body.password}')`
+      console.log(sqlQuery)
+      await db.query(sqlQuery)
+      let user = await db.query(`SELECT * FROM User WHERE email = '${req.body.email}'`)
+      user = user[0]
+      let userJson = JSON.stringify(user)
       res.send({
-        user: userJson,
+        user: user,
         token: jwtSignUser(userJson)
       })
     } catch (err) {
+      console.log(err)
       res.status(400).send({
         error: 'This email account is already in use.'
       })
@@ -27,31 +30,19 @@ module.exports = {
   async login (req, res) {
     try {
       const {email, password} = req.body
-      const user = await User.findOne({
-        where: {
-          email: email
-        }
-      })
-
-      if (!user) {
+      let user = await db.query(`SELECT * FROM User WHERE email = '${email}' AND password = '${password}'`)
+      if (user.length === 0) {
         return res.status(403).send({
           error: 'The login information was incorrect'
         })
       }
-
-      const isPasswordValid = await user.comparePassword(password)
-      if (!isPasswordValid) {
-        return res.status(403).send({
-          error: 'The login information was incorrect'
-        })
-      }
-
-      const userJson = user.toJSON()
+      let userJson = JSON.stringify(user)
       res.send({
-        user: userJson,
+        user: user,
         token: jwtSignUser(userJson)
       })
     } catch (err) {
+      console.log(err)
       res.status(500).send({
         error: 'An error has occured trying to log in'
       })

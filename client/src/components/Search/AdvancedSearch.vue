@@ -44,7 +44,7 @@
       </v-flex>
     </v-layout>
     <div class="text-xs-center">
-      <v-btn color="primary" dark @click="advancedSearch">Search</v-btn>
+      <v-btn class="cyan" dark @click="advancedSearch">Search</v-btn>
     </div>
   </panel>
 </template>

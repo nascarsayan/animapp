@@ -2,15 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
-import Songs from '@/components/Songs/Index'
-import CreateSong from '@/components/CreateSong'
-import EditSong from '@/components/EditSong'
-import ViewSong from '@/components/ViewSong/Index'
 import Animes from '@/components/Animes/Index'
 import Anime from '@/components/Anime/Index'
+import Personas from '@/components/Personas/Index'
 import Persona from '@/components/Persona/Index'
+import Crews from '@/components/Crews/Index'
 import Crew from '@/components/Crew/Index'
-import AdvancedSearch from '@/components/AdvancedSearch'
+import Search from '@/components/Search/Index'
 
 Vue.use(Router)
 
@@ -27,33 +25,8 @@ export default new Router({
       component: Login
     },
     {
-      path: '/songs',
-      name: 'songs',
-      component: Songs
-    },
-    {
-      path: '/songs/create',
-      name: 'songs-create',
-      component: CreateSong
-    },
-    {
-      path: '/songs/:songId',
-      name: 'song',
-      component: ViewSong
-    },
-    {
-      path: '/songs/:songId/edit',
-      name: 'song-edit',
-      component: EditSong
-    },
-    {
       path: '/animes',
       name: 'animes',
-      component: Animes
-    },
-    {
-      path: '/animes/:offset',
-      name: 'animes-batch',
       component: Animes
     },
     {
@@ -62,9 +35,19 @@ export default new Router({
       component: Anime
     },
     {
+      path: '/personas',
+      name: 'personas',
+      component: Personas
+    },
+    {
       path: '/persona/:personaId',
       name: 'persona',
       component: Persona
+    },
+    {
+      path: '/crews',
+      name: 'crews',
+      component: Crews
     },
     {
       path: '/crew/:crewId',
@@ -74,11 +57,11 @@ export default new Router({
     {
       path: '/search',
       name: 'search',
-      component: AdvancedSearch
+      component: Search
     },
     {
       path: '*',
-      redirect: 'animes'
+      redirect: 'search'
     }
   ]
 })

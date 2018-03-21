@@ -1,12 +1,12 @@
 <template>
   <v-layout row wrap>
     <!-- <v-flex xs6 v-if="isUserLoggedIn">
-      <animes-bookmarks />
-      <recently-viewed-Anime class="mt-2" />
+      <crews-bookmarks />
+      <recently-viewed-Crews class="mt-2" />
     </v-flex> -->
     <v-flex xs12 class="ml-2">
-      <!-- <Animes-search-panel /> -->
-      <panel title="Animes">
+      <!-- <Crews-search-panel /> -->
+      <panel title="Crews">
         <v-text-field
             append-icon="search"
             label="Search"
@@ -17,22 +17,26 @@
         <v-data-table
           :search="search"
           :headers="headers"
-          :items="animes"
+          :items="crews"
           :pagination.sync="pagination"
           :rows-per-page-items="numRows"
           class="elevation-1">
           <template slot="items" slot-scope="props">
-            <td class="visitable type">
-              <img class="anime-image" :src="props.item.pic_url"/>
+            <td class="visitable pic_url" @click="viewCrew(props.item.crew_id)">
+              <img class="crew-image" :src="props.item.pic_url"/>
             </td>
-            <td class="visitable primary_name text-xs-left" @click="viewAnime(props.item.anime_id)">
-                <b>{{props.item.primary_name}}</b><br/>
-                {{props.item.synopsis.substring(0, 400)}}...
+            <td class="visitable full_name text-xs-left" @click="viewCrew(props.item.crew_id)">
+              {{props.item.full_name}}
             </td>
-            <td class="visitable type text-xs-right"> {{props.item.type}} </td>
-            <td class="visitable num-episodes text-xs-right"> {{props.item.num_episodes}} </td>
-            <td class="visitable start-date text-xs-right">{{props.item.start_date}} </td>
-            <td class="visitable rating text-xs-right"> {{props.item.rating}} </td>
+            <td class="visitable birthday text-xs-right" @click="viewCrew(props.item.crew_id)">
+              {{props.item.birthday}}
+            </td>
+            <td class="visitable num-episodes text-xs-right" @click="viewCrew(props.item.crew_id)">
+              {{props.item.website}}
+            </td>
+            <td class="visitable details text-xs-left" @click="viewCrew(props.item.crew_id)">
+              {{props.item.more}}
+            </td>
           </template>
           <v-alert slot="no-results" :value="true" color="error" icon="warning">
             Your search for "{{ search }}" found no results.
@@ -44,7 +48,7 @@
 </template>
 
 <script>
-import AnimeService from '@/services/AnimeService'
+import SearchService from '@/services/SearchService'
 import {mapState} from 'vuex'
 
 import _ from 'lodash'
@@ -58,11 +62,11 @@ export default {
   },
   data () {
     return {
-      animes: [],
+      crews: [],
       search: '',
       page: 1,
       numRows: [10, 20],
-      pagination: {'sortBy': 'primary_name', 'rowsPerPage': 10},
+      pagination: {'sortBy': 'full_name', 'rowsPerPage': 10},
       headers: [{
           text: "Pic",
           value: "pic_url",
@@ -70,37 +74,29 @@ export default {
         },
         {
           text: "Title",
-          value: "primary_name",
+          value: "full_name",
           align: "left",
         },
         {
-          text: "Type",
-          value: "type"
+          text: "Birthday",
+          value: "birthday"
         },
         {
-          text: "Episodes",
-          value: "episodes"
+          text: "Website",
+          value: "website"
         },
-        {
-          text: "Start Date",
-          value: "start_date"
-        },
-        {
-          text: "Rating",
-          value: "rating"
-        }
       ],
     }
   },
   async mounted () {
-    this.animes = (await AnimeService.index(this.route.query)).data
+    this.crews = (await SearchService.index('crews', this.route.query)).data
   },
   methods: {
-    viewAnime(animeId) {
+    viewCrew(crewId) {
       this.$router.push({
-          name: 'anime',
+          name: 'crew',
           params: {
-            animeId
+            crewId
           }
         })
     }
@@ -109,7 +105,7 @@ export default {
     '$route.query': {
       // immediate: true,
       async handler(value) {
-        this.animes = (await AnimeService.index(value)).data
+        this.crews = (await SearchService.index('crews', value)).data
       }
     }
   }
@@ -120,7 +116,7 @@ export default {
 .visitable {
   cursor: pointer;
 }
-.anime-image {
+.crew-image {
   width: 100%;
   margin: 0 auto;
 }

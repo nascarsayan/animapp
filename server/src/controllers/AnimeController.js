@@ -37,7 +37,7 @@ module.exports = {
         suffix = extras.join(' AND')
         suffix = `WHERE ${suffix}`
       }
-      if (query.offset) {
+      if (query.offset || query.offset === 0) {
         suffix = `${suffix} LIMIT 50 OFFSET ${query.offset}`
       }
       sqlQuery = `${sqlQuery} ${suffix};`
