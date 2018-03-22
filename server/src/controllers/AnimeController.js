@@ -8,42 +8,58 @@ let sqlQuery = ''
 module.exports = {
   async index (req, res) {
     try {
-      sqlQuery = `SELECT
-      anime_id, primary_name, type, num_episodes, start_date, rating, synopsis, pic_url
-      FROM Anime`
+      console.log(req.query)
       let query = JSON.parse(req.query.query)
-      let extras = []
-      animel1.map((keyName) => {
-        if (query[keyName]) {
-          extras.push(` ${keyName} = '${query[keyName]}'`)
+      if (query['name']) {
+        sqlQuery = `SELECT
+        anime_id, primary_name, type, num_episodes, start_date, rating, synopsis, pic_url
+        FROM Anime NATURAL JOIN Anime_alt_name
+        WHERE alt_name LIKE '%${query['name']}%'
+        OR primary_name LIKE '%${query['name']}%';`
+        console.log(sqlQuery)
+        let data = await db.query(sqlQuery)
+        res.send(data)
+      } else {
+        sqlQuery = `SELECT
+        anime_id, primary_name, type, num_episodes, start_date, rating, synopsis, pic_url
+        FROM Anime`
+        let extras = []
+        console.log(query['rating'])
+        if (query['rating'] && query['rating'].includes('violence and profanity')) {
+          query['rating'] = 'R - 17+ (violence & profanity)'
         }
-      })
-      animel2.map((keyName) => {
-        if (query[keyName]) {
-          let values = query[keyName]
-          if (typeof (values) !== 'object') {
-            values = [values]
+        animel1.map((keyName) => {
+          if (query[keyName]) {
+            extras.push(` ${keyName} = '${query[keyName]}'`)
           }
-          let keyFilter = values
-            .map(value => `SELECT anime_id FROM Anime_${keyName} WHERE ${keyName} = '${value}'`)
-            .reduce((acc, nxt) => `${nxt} AND anime_id in (${acc})`)
-          extras.push(` anime_id IN (${keyFilter})`)
+        })
+        animel2.map((keyName) => {
+          if (query[keyName]) {
+            let values = query[keyName]
+            if (typeof (values) !== 'object') {
+              values = [values]
+            }
+            let keyFilter = values
+              .map(value => `SELECT anime_id FROM Anime_${keyName} WHERE ${keyName} = '${value}'`)
+              .reduce((acc, nxt) => `${nxt} AND anime_id in (${acc})`)
+            extras.push(` anime_id IN (${keyFilter})`)
           // let fields = query.genre.map(each => `'${each}'`).join(', ')
           // extras.push(` genres in (${fields})`)
+          }
+        })
+        let suffix = ''
+        if (extras.length > 0) {
+          suffix = extras.join(' AND')
+          suffix = `WHERE ${suffix}`
         }
-      })
-      let suffix = ''
-      if (extras.length > 0) {
-        suffix = extras.join(' AND')
-        suffix = `WHERE ${suffix}`
+        if (query.offset || query.offset === 0) {
+          suffix = `${suffix} LIMIT 50 OFFSET ${query.offset}`
+        }
+        sqlQuery = `${sqlQuery} ${suffix};`
+        console.log(sqlQuery)
+        let data = await db.query(sqlQuery)
+        res.send(data)
       }
-      if (query.offset || query.offset === 0) {
-        suffix = `${suffix} LIMIT 50 OFFSET ${query.offset}`
-      }
-      sqlQuery = `${sqlQuery} ${suffix};`
-      console.log(sqlQuery)
-      let data = await db.query(sqlQuery)
-      res.send(data)
     } catch (err) {
       console.log(err)
       console.log(sqlQuery)
