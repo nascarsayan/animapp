@@ -28,6 +28,9 @@ module.exports = {
         if (query['rating'] && query['rating'].includes('violence and profanity')) {
           query['rating'] = 'R - 17+ (violence & profanity)'
         }
+        if (query['rating'] && query['rating'].includes('Mild Nudity')) {
+          query['rating'] = 'R+ - Mild Nudity'
+        }
         animel1.map((keyName) => {
           if (query[keyName]) {
             extras.push(` ${keyName} = '${query[keyName]}'`)
