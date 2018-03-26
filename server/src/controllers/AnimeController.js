@@ -7,10 +7,10 @@ let sqlQuery = ''
 module.exports = {
   async index (req, res) {
     try {
-      console.log(req.query)
+      // console.log(req.query)
       let query = JSON.parse(req.query.query)
       if (query['name']) {
-        sqlQuery = `SELECT
+        sqlQuery = `SELECT DISTINCT
         anime_id, primary_name, type, num_episodes, start_date, rating, synopsis, pic_url
         FROM Anime NATURAL JOIN Anime_alt_name
         WHERE alt_name LIKE '%${query['name']}%'
@@ -23,7 +23,7 @@ module.exports = {
         anime_id, primary_name, type, num_episodes, start_date, rating, synopsis, pic_url
         FROM Anime`
         let extras = []
-        console.log(query['rating'])
+        // console.log(query['rating'])
         if (query['rating'] && query['rating'].includes('violence and profanity')) {
           query['rating'] = 'R - 17+ (violence & profanity)'
         }
@@ -73,8 +73,12 @@ module.exports = {
   async show (req, res) {
     let anime = {}
     let animeId = req.params.animeId
-    let l1data = await db.query(`SELECT * FROM Anime WHERE anime_id = ${animeId}`)
-    let pc = await db.query(`SELECT p.persona_id,
+
+    let q1 = `SELECT * FROM Anime WHERE anime_id = ${animeId}`
+    console.log(q1)
+    let l1data = await db.query(q1)
+
+    q1 = `SELECT p.persona_id,
     p.primary_name AS persona_name,
     c.crew_id,
     c.full_name AS crew_name
@@ -83,13 +87,19 @@ module.exports = {
     AND a.anime_id = ap.anime_id
     AND ap.persona_id = p.persona_id
     AND va.persona_id = p.persona_id
-    AND c.crew_id = va.crew_id`)
+    AND c.crew_id = va.crew_id`
+    console.log(q1)
+    let pc = await db.query(q1)
+
     l1data[0]['persona_crew'] = pc
     _.extend(anime, l1data[0])
     for (let ind = 0; ind < animel2.length; ind++) {
-      let l2data = await db.query(`SELECT
+      q1 = `SELECT
       ${animel2[ind]} FROM Anime_${animel2[ind]}
-      WHERE anime_id = ${req.params.animeId}`)
+      WHERE anime_id = ${req.params.animeId}`
+      console.log(q1)
+      let l2data = await db.query(q1)
+
       let temp = {}
       temp[animel2[ind]] = []
       for (let ind2 = 0; ind2 < l2data.length; ind2++) {
@@ -99,12 +109,13 @@ module.exports = {
     }
     if (req.query.userId) {
       let userId = JSON.parse(req.query.userId)
-      let watch = await db.query(`SELECT progress, score, status FROM Watch
-      WHERE user_id = ${userId} AND anime_id = ${animeId}`)
-      console.log(`SELECT progress, score, status FROM Watch
-      WHERE user_id = ${userId} AND anime_id = ${animeId}`)
+      q1 = `SELECT progress, score, status FROM Watch
+      WHERE user_id = ${userId} AND anime_id = ${animeId}`
+      console.log(q1)
+      let watch = await db.query(q1)
+
       anime['watch'] = watch[0]
-      console.log(anime)
+      // console.log(anime)
     }
     res.send(anime)
   }
