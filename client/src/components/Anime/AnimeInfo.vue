@@ -1,8 +1,11 @@
 <template>
   <panel title="Info">
     <div>
-      <v-layout>
-        <v-flex>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <div class="content name">
+            <b>Id:</b> {{anime.anime_id}}
+          </div>
           <div class="content name">
             <b>Primary Name:</b> {{anime.primary_name}}
           </div>
@@ -116,6 +119,26 @@
             </span> 
           </div>
         </v-flex>
+        <!-- <v-flex xs3 v-if="isUserLoggedIn">
+          <v-select
+            :items="statusArr"
+            v-model="watch.status"
+            label="Add to list"
+            single-line
+            hide-details
+          ></v-select>
+        </v-flex>
+        <template v-if="watch.status">
+          <v-flex xs4 v-if="watch.status === 'Completed'">
+            <v-slider label=" #Ep" :max="anime.num_episodes" :value="anime.num_episodes" thumb-label></v-slider>
+          </v-flex>
+          <v-flex xs4 v-else>
+            <v-slider label=" #Ep" :max="anime.num_episodes" v-model="watch.progress" thumb-label></v-slider>
+          </v-flex>
+          <div class="text-xs-center">
+            <v-btn class="cyan" dark @click.stop="saveStatus(anime.anime_id)">Save</v-btn>
+          </div>
+        </template> -->
       </v-layout>
     </div>
   </panel>
@@ -123,14 +146,38 @@
 
 <script>
 import AnimeService from '@/services/AnimeService'
+import WatchService from '@/services/WatchService'
+
+import {mapState} from 'vuex'
+
 export default {
+  data() {
+    return {
+      statusArr: [
+        'Watching',
+        'Completed',
+        'On-Hold',
+        'Dropped',
+        'Plan to Watch',
+      ],
+      watch: {
+        status: null,
+        progress: null
+      },
+    }
+  },
   props: [
     'anime'
   ],
   computed: {
+    ...mapState([
+      'isUserLoggedIn',
+      'user',
+      'route'
+    ]),
     isNotMovie() {
       return this.anime.type !== 'Movie'
-    }
+    },
   },
   methods: {
     filterPrimary(field, val) {
@@ -153,6 +200,21 @@ export default {
       console.log(route);
       this.$router.push(route)
     },
+    async saveStatus(animeId) {
+      this.watch.user_id = this.user.user_id
+      this.watch.anime_id = this.anime.anime_id
+      await WatchService.post(this.watch)
+    }
+  },
+  watch: {
+    'anime.watch': {
+      handler (value) {
+        if (value) {
+          this.watch.status = value.status
+          this.watch.progress = value.progress
+        }
+      }
+    }
   }
   // watch: {
   //   '$route.query.search': {

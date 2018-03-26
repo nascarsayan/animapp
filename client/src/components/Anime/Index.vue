@@ -16,9 +16,12 @@
             <anime-synopsis :anime="anime"/>
           </v-flex>
         </v-layout>
-        <v-layout>
-          <v-flex d-flex>
+        <v-layout row wrap>
+          <v-flex xs12 d-flex>
             <anime-p-c :anime="anime"/>
+          </v-flex>
+          <v-flex xs6 offset-xs3 d-flex>
+            <anime-watch :anime="anime" v-if="isUserLoggedIn"/>
           </v-flex>
         </v-layout>
       </v-flex>
@@ -30,6 +33,7 @@ import AnimeImage from './AnimeImage'
 import AnimeInfo from './AnimeInfo'
 import AnimeSynopsis from './AnimeSynopsis'
 import AnimePC from './AnimePC'
+import AnimeWatch from './AnimeWatch'
 import AnimeService from '@/services/AnimeService'
 import {mapState} from 'vuex'
 
@@ -39,6 +43,7 @@ export default {
     AnimeImage,
     AnimeSynopsis,
     AnimePC,
+    AnimeWatch,
   },
   computed: {
     ...mapState([
@@ -55,8 +60,8 @@ export default {
   async mounted () {
     let animeId = this.route.params.animeId
     console.log('hi',animeId)
-    this.anime = (await AnimeService.show(animeId)).data
-    console.log('hi', this.anime)
+    this.anime = (await AnimeService.show(animeId, this.user)).data
+    console.log('hi', this.anime.watch)
   },
   watch: {
     '$route.params.animeId': {

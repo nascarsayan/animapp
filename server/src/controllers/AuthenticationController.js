@@ -36,6 +36,7 @@ module.exports = {
           error: 'The login information was incorrect'
         })
       }
+      user = user[0]
       let userJson = JSON.stringify(user)
       res.send({
         user: user,

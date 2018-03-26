@@ -97,6 +97,15 @@ module.exports = {
       }
       _.extend(anime, temp)
     }
+    if (req.query.userId) {
+      let userId = JSON.parse(req.query.userId)
+      let watch = await db.query(`SELECT progress, score, status FROM Watch
+      WHERE user_id = ${userId} AND anime_id = ${animeId}`)
+      console.log(`SELECT progress, score, status FROM Watch
+      WHERE user_id = ${userId} AND anime_id = ${animeId}`)
+      anime['watch'] = watch[0]
+      console.log(anime)
+    }
     res.send(anime)
   }
 }

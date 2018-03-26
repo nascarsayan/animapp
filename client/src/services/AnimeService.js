@@ -14,7 +14,11 @@ export default {
       return Api().get(`animes`)
     }
   },
-  show (animeId) {
-    return Api().get(`anime/${animeId}`)
+  show (animeId, user) {
+    let userId = ''
+    if (user) {
+      userId = user.user_id
+    }
+    return Api().get(`anime/${animeId}?userId=${userId}`)
   }
 }

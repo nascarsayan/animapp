@@ -3,6 +3,7 @@ const AuthenticationControllerPolicy = require('./policies/AuthenticationControl
 const AnimeController = require('./controllers/AnimeController')
 const PersonaController = require('./controllers/PersonaController')
 const CrewController = require('./controllers/CrewController')
+const WatchController = require('./controllers/WatchController')
 
 module.exports = (app) => {
   app.post('/register',
@@ -23,4 +24,6 @@ module.exports = (app) => {
     CrewController.index)
   app.get('/crew/:crewId',
     CrewController.show)
+  app.post('/watch',
+    WatchController.createOrUpdate)
 }
