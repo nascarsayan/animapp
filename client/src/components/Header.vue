@@ -5,10 +5,7 @@
         class="home"
         tag="span"
         :to="{
-          name: 'animes',
-          query: {
-            offset: 50
-          }
+          name: 'search',
         }">
         AnimApp
       </router-link>
@@ -22,6 +19,42 @@
           name: 'search'
         }">
         Search
+      </v-btn>
+    </v-toolbar-items>
+    <v-toolbar-items>
+      <v-btn 
+        flat 
+        dark
+        :to="{
+          name: 'animes'
+        }">
+        Animes
+      </v-btn>
+    </v-toolbar-items>
+    <v-toolbar-items>
+      <v-btn 
+        flat 
+        dark
+        :to="{
+          name: 'personas',
+          query: {
+            name: ''
+          }
+        }">
+        Characters
+      </v-btn>
+    </v-toolbar-items>
+    <v-toolbar-items>
+      <v-btn 
+        flat 
+        dark
+        :to="{
+          name: 'crews',
+          query: {
+            name: ''
+          }
+        }">
+        Crew
       </v-btn>
     </v-toolbar-items>
 

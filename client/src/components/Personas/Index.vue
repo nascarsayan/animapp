@@ -17,6 +17,8 @@
         <v-data-table
           :search="search"
           :headers="headers"
+          :loading="isLoading"
+          :no-data-text="loadText"
           :items="personas"
           :pagination.sync="pagination"
           :rows-per-page-items="numRows"
@@ -57,6 +59,8 @@ export default {
   data () {
     return {
       personas: [],
+      loadText: 'Loading Data',
+      isLoading: true,
       search: '',
       page: 1,
       numRows: [10, 20],
@@ -76,6 +80,7 @@ export default {
   },
   async mounted () {
     this.personas = (await SearchService.index('personas', this.route.query)).data
+    this.isLoading = false
   },
   methods: {
     viewPersona(personaId) {

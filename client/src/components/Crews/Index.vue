@@ -17,6 +17,8 @@
         <v-data-table
           :search="search"
           :headers="headers"
+          :loading="isLoading"
+          :no-data-text="loadText"
           :items="crews"
           :pagination.sync="pagination"
           :rows-per-page-items="numRows"
@@ -63,6 +65,8 @@ export default {
   data () {
     return {
       crews: [],
+      loadText: 'Loading Data',
+      isLoading: true,
       search: '',
       page: 1,
       numRows: [10, 20],
@@ -90,6 +94,7 @@ export default {
   },
   async mounted () {
     this.crews = (await SearchService.index('crews', this.route.query)).data
+    this.isLoading = false
   },
   methods: {
     viewCrew(crewId) {

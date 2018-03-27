@@ -18,6 +18,8 @@
           :search="search"
           :headers="headers"
           :items="animes"
+          :loading="isLoading"
+          :no-data-text="loadText"
           :pagination.sync="pagination"
           :rows-per-page-items="numRows"
           class="elevation-1">
@@ -59,6 +61,8 @@ export default {
   data () {
     return {
       animes: [],
+      loadText: 'Loading Data',
+      isLoading: true,
       search: '',
       page: 1,
       numRows: [10, 20],
@@ -94,6 +98,7 @@ export default {
   },
   async mounted () {
     this.animes = (await AnimeService.index(this.route.query)).data
+    this.isLoading = false
   },
   methods: {
     viewAnime(animeId) {
