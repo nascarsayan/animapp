@@ -11,7 +11,7 @@ module.exports = {
   async register (req, res) {
     try {
       let sqlQuery = `INSERT INTO User(email, password) VALUES ('${req.body.email}', '${req.body.password}')`
-      console.log(sqlQuery)
+      console.log(sqlQuery, '\n\n')
       await db.query(sqlQuery)
       let user = await db.query(`SELECT * FROM User WHERE email = '${req.body.email}'`)
       user = user[0]

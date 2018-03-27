@@ -91,7 +91,6 @@ export default {
     '$route.query': {
       // immediate: true,
       async handler(value) {
-        console.log('handler')
         this.personas = (await SearchService.index('personas', value)).data
       }
     }

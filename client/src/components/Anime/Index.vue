@@ -59,16 +59,13 @@ export default {
   },
   async mounted () {
     let animeId = this.route.params.animeId
-    console.log('hi',animeId)
     this.anime = (await AnimeService.show(animeId, this.user)).data
-    console.log('hi', this.anime.watch)
   },
   watch: {
     '$route.params.animeId': {
       // immediate: true,
       async handler(value) {
         this.anime = (await AnimeService.show(value)).data
-        console.log('hi', this.anime)
       }
     }
   }

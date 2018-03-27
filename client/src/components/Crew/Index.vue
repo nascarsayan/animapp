@@ -42,16 +42,13 @@ export default {
   },
   async mounted () {
     let crewId = this.route.params.crewId
-    console.log('hi',crewId)
     this.crew = (await CrewService.show(crewId)).data
-    console.log('hi', this.crew)
   },
   watch: {
     '$route.params.crewId': {
       // immediate: true,
       async handler(value) {
         this.crew = (await CrewService.show(value)).data
-        console.log('hi', this.crew)
       }
     }
   }

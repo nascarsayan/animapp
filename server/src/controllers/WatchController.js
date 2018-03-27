@@ -2,7 +2,6 @@ const db = require('../db')
 module.exports = {
   async createOrUpdate (req, res) {
     const data = req.body
-    console.log(data)
     const keys = Object.keys(data)
     keys.forEach(key => {
       if (!data[key]) {
@@ -12,12 +11,11 @@ module.exports = {
     const values = Object.values(data).map(val => `'${val}'`)
     const isPresentQuery = `SELECT * FROM Watch
     WHERE anime_id = ${data['anime_id']} AND user_id = ${data['user_id']}`
-    console.log(isPresentQuery)
+    console.log(isPresentQuery, '\n\n')
     let isPresent = await db.query(isPresentQuery)
-    console.log(isPresent)
     if (isPresent.length === 0) {
       const sqlQuery = `INSERT INTO Watch (${keys.join(',')}) VALUES(${values.join(',')})`
-      console.log(sqlQuery)
+      console.log(sqlQuery, '\n\n')
       await db.query(sqlQuery)
       isPresent = await db.query(isPresentQuery)
     } else {
@@ -30,11 +28,11 @@ module.exports = {
       const sqlQuery = `UPDATE Watch
       SET ${arr.join(',')}
       WHERE anime_id = ${data['anime_id']} AND user_id = ${data['user_id']}`
-      console.log(sqlQuery)
+      console.log(sqlQuery, '\n\n')
       await db.query(sqlQuery)
       isPresent = await db.query(isPresentQuery)
     }
-    console.log(isPresent)
+    console.log(isPresent, '\n\n')
     res.send(isPresent[0])
   }
 }

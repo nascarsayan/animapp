@@ -24,7 +24,6 @@ export default {
   },
   methods: {
     searchIt() {
-      console.log(this.queryString)
       const route = {
         name: 'personas',
         query: {

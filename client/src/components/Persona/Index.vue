@@ -42,16 +42,13 @@ export default {
   },
   async mounted () {
     let personaId = this.route.params.personaId
-    console.log('hi',personaId)
     this.persona = (await PersonaService.show(personaId)).data
-    console.log('hi', this.persona)
   },
   watch: {
     '$route.params.personaId': {
       // immediate: true,
       async handler(value) {
         this.persona = (await PersonaService.show(value)).data
-        console.log('hi', this.persona)
       }
     }
   }

@@ -119,26 +119,6 @@
             </span> 
           </div>
         </v-flex>
-        <!-- <v-flex xs3 v-if="isUserLoggedIn">
-          <v-select
-            :items="statusArr"
-            v-model="watch.status"
-            label="Add to list"
-            single-line
-            hide-details
-          ></v-select>
-        </v-flex>
-        <template v-if="watch.status">
-          <v-flex xs4 v-if="watch.status === 'Completed'">
-            <v-slider label=" #Ep" :max="anime.num_episodes" :value="anime.num_episodes" thumb-label></v-slider>
-          </v-flex>
-          <v-flex xs4 v-else>
-            <v-slider label=" #Ep" :max="anime.num_episodes" v-model="watch.progress" thumb-label></v-slider>
-          </v-flex>
-          <div class="text-xs-center">
-            <v-btn class="cyan" dark @click.stop="saveStatus(anime.anime_id)">Save</v-btn>
-          </div>
-        </template> -->
       </v-layout>
     </div>
   </panel>
@@ -181,23 +161,19 @@ export default {
   },
   methods: {
     filterPrimary(field, val) {
-      console.log(field, val)
       const route = {
         name: 'animes',
         query: {}
       }
       route.query[field] = val
-      console.log(route);
       this.$router.push(route)
     },
     filterSecondary(field, val) {
-      console.log(field, val)
       const route = {
         name: 'animes',
         query: {}
       }
       route.query[field] = [val]
-      console.log(route);
       this.$router.push(route)
     },
     async saveStatus(animeId) {

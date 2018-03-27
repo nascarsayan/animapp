@@ -15,7 +15,7 @@ module.exports = {
         FROM Anime NATURAL JOIN Anime_alt_name
         WHERE alt_name LIKE '%${query['name']}%'
         OR primary_name LIKE '%${query['name']}%';`
-        console.log(sqlQuery)
+        console.log(sqlQuery, '\n\n')
         let data = await db.query(sqlQuery)
         res.send(data)
       } else {
@@ -58,13 +58,13 @@ module.exports = {
           suffix = `${suffix} LIMIT 50 OFFSET ${query.offset}`
         }
         sqlQuery = `${sqlQuery} ${suffix};`
-        console.log(sqlQuery)
+        console.log(sqlQuery, '\n\n')
         let data = await db.query(sqlQuery)
         res.send(data)
       }
     } catch (err) {
       console.log(err)
-      console.log(sqlQuery)
+      console.log(sqlQuery, '\n\n')
       res.status(500).send({
         error: 'an error has occured trying to fetch animes'
       })
@@ -75,7 +75,7 @@ module.exports = {
     let animeId = req.params.animeId
 
     let q1 = `SELECT * FROM Anime WHERE anime_id = ${animeId}`
-    console.log(q1)
+    console.log(q1, '\n\n')
     let l1data = await db.query(q1)
 
     q1 = `SELECT p.persona_id,
@@ -88,7 +88,7 @@ module.exports = {
     AND ap.persona_id = p.persona_id
     AND va.persona_id = p.persona_id
     AND c.crew_id = va.crew_id`
-    console.log(q1)
+    console.log(q1, '\n\n')
     let pc = await db.query(q1)
 
     l1data[0]['persona_crew'] = pc
@@ -97,7 +97,7 @@ module.exports = {
       q1 = `SELECT
       ${animel2[ind]} FROM Anime_${animel2[ind]}
       WHERE anime_id = ${req.params.animeId}`
-      console.log(q1)
+      console.log(q1, '\n\n')
       let l2data = await db.query(q1)
 
       let temp = {}
@@ -111,7 +111,7 @@ module.exports = {
       let userId = JSON.parse(req.query.userId)
       q1 = `SELECT progress, score, status FROM Watch
       WHERE user_id = ${userId} AND anime_id = ${animeId}`
-      console.log(q1)
+      console.log(q1, '\n\n')
       let watch = await db.query(q1)
 
       anime['watch'] = watch[0]
