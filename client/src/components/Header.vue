@@ -1,5 +1,11 @@
 <template>
   <v-toolbar fixed class="purple" dark>
+    <v-btn flat icon class="cyan" @click='goTo(-1)'>
+      <v-icon>arrow_back</v-icon>
+    </v-btn>
+    <v-btn flat icon class="cyan" @click='goTo(1)'>
+      <v-icon>arrow_forward</v-icon>
+    </v-btn>
     <v-toolbar-title class="mr-4">
       <router-link 
         class="home"
@@ -95,6 +101,9 @@
 <script>
 export default {
   methods: {
+    goTo (val) {
+      this.$router.go(val)
+    },
     logout () {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
