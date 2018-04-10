@@ -1,10 +1,10 @@
 <template>
   <panel title="Advanced Search">
     <v-layout row wrap>
-      <v-flex xs1>
+      <v-flex xs3>
         <v-subheader>Type</v-subheader>
       </v-flex>
-      <v-flex xs3>
+      <v-flex xs9>
         <v-select
           :items="typeArr"
           v-model="type"
@@ -13,10 +13,10 @@
           hide-details
         ></v-select>
       </v-flex>
-      <v-flex xs1>
+      <v-flex xs3>
         <v-subheader>Status</v-subheader>
       </v-flex>
-      <v-flex xs3>
+      <v-flex xs9>
         <v-select
           :items="statusArr"
           v-model="status"
@@ -25,10 +25,10 @@
           hide-details
         ></v-select>
       </v-flex>
-      <v-flex xs1>
+      <v-flex xs3>
         <v-subheader>Rating</v-subheader>
       </v-flex>
-      <v-flex xs3>
+      <v-flex xs9>
         <v-select
           :items="ratingArr"
           v-model="rating"
@@ -39,7 +39,7 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap>
-      <v-flex xs2 v-for="g in genreArr" :key="g">
+      <v-flex xs6 v-for="g in genreArr" :key="g">
         <v-checkbox :label="g" v-model="genre" :value="g" hide-details></v-checkbox>
       </v-flex>
     </v-layout>

@@ -6,13 +6,13 @@
     <v-layout row wrap>
       <v-flex xs12>
         <v-layout row wrap>
-          <v-flex xs3 d-flex>
+          <v-flex xs12 d-flex>
             <anime-image :anime="anime"/>
           </v-flex>
-          <v-flex xs5 d-flex>
+          <v-flex xs12 d-flex>
             <anime-info :anime="anime"/>
           </v-flex>
-          <v-flex xs4 d-flex>
+          <v-flex xs12 d-flex>
             <anime-synopsis :anime="anime"/>
           </v-flex>
         </v-layout>
@@ -20,7 +20,7 @@
           <v-flex xs12 d-flex>
             <anime-p-c :anime="anime"/>
           </v-flex>
-          <v-flex xs6 offset-xs3 d-flex>
+          <v-flex xs12 offset-xs3 d-flex>
             <anime-watch :anime="anime" v-if="isUserLoggedIn"/>
           </v-flex>
         </v-layout>
