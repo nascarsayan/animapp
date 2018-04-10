@@ -2,7 +2,7 @@
   <v-layout column>
     <v-flex>
       <panel title="Journal">
-        <v-flex xs3>
+        <v-flex xs4>
           <v-select
             :items="statusArr"
             v-model="watch.status"
