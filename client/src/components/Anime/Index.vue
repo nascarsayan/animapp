@@ -20,7 +20,7 @@
           <v-flex xs12 d-flex>
             <anime-p-c :anime="anime"/>
           </v-flex>
-          <v-flex xs12 offset-xs3 d-flex>
+          <v-flex xs12 d-flex>
             <anime-watch :anime="anime" v-if="isUserLoggedIn"/>
           </v-flex>
         </v-layout>

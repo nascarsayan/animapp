@@ -12,11 +12,17 @@
           ></v-select>
         </v-flex>
         <template v-if="watch.status">
-          <v-flex v-if="watch.status === 'Completed'">
+          <v-flex xs9 v-if="watch.status === 'Completed'">
             <v-slider label=" Number of Episodes : " :max="anime.num_episodes" :value="anime.num_episodes" thumb-label></v-slider>
           </v-flex>
-          <v-flex v-else>
+          <v-flex xs3 v-if="watch.status === 'Completed'">
+            <v-text-field :max="anime.num_episodes" :value="anime.num_episodes" type="number"></v-text-field>            
+          </v-flex>
+          <v-flex xs9 v-else>
             <v-slider label=" Number of Episodes : " :max="anime.num_episodes" v-model="watch.progress" thumb-label></v-slider>
+          </v-flex>
+          <v-flex xs3>
+            <v-text-field v-model="watch.progress" :max="anime.num_episodes" type="number"></v-text-field>            
           </v-flex>
           <div class="text-xs-center">
             <v-btn class="cyan" dark @click.stop="saveStatus(anime.anime_id)">Save</v-btn>
